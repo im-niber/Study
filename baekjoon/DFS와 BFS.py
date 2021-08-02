@@ -21,17 +21,11 @@ def dfs(data, start) :
         dfs_text.append(start)
         visited[start] = 1
 
-    while len(deq) > 0 :
-        item = sorted(deq.pop())
-        for i in item :
-            if visited[i] != 1:
-                visited[i] = 1
-                dfs_text.append(i)
-                deq.append(data[i])
-                dfs(data,i)
-                
-
-
+    item = sorted(deq.pop())
+    for i in item :
+        if visited[i] != 1:
+            dfs(data,i)
+            
 bfs_text = []
 dfs_text = []
 
