@@ -12,8 +12,8 @@ for i in range(1, int(input())+1):
                 break
 
         if idx != -1 :
-            text[idx:idx] = text2
-            # temp_text = text[:k]
+            text[idx:idx] = text2           # 슬라이싱으로 풀었는데 주석된 부분으로 하면 시간초과 때문에 오답이다.
+            # temp_text = text[:k]            다른 사람 풀이를 참고하여서 text[idx:idx] 식으로도 사용을 하는걸 보고 해결하였다.
             # temp_text.extend(text2)
             # temp_text.extend(text[k:])
             # text = temp_text
@@ -27,7 +27,7 @@ for i in range(1, int(input())+1):
     print()
 
 
-########################################
+######################################## 연결리스트 풀이, 목차에 맞게 연결리스트로 풀면 이런식이다.
 class Node:
   def __init__(self, d=0, p=None, n=None):
     self.data = d
