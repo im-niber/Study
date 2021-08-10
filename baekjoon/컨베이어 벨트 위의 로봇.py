@@ -43,6 +43,69 @@ while True :
     
 print(count)
 
+'''
+다른 사람의 풀이를 보고 시간이 매우 빨라 
+적어본 코드.
+'''
+
+N, K = map(int,input().split())
+dura = list(map(int,input().split()))
+robot = [0] * len(dura)
+
+start = 0                   # start를 정해줌
+end = N - 1                 # end 도 정해줌 투포인터라고 하나 이런걸 그랬던것 같다
+restart = len(dura) - 1     # 배열길이를 초과할 경우를 대비해 정의해줌
+
+
+count = 0
+dura_count = 0
+
+while dura_count < K :
+    count += 1 
+    robot[end] = 0          # 내리는 위치 판별.
+
+    start -= 1              # 회전을 한다면 start 지점은 뒤에 있던 원소가 되므로 -1, end도 마찬가지 
+    end -= 1                # 이 접근은 pop append 를 사용안하므로 상당히 빨라 지는 듯 하다. 
+
+    if start < 0 :
+        start = restart
+    elif end < 0 :
+        end = restart
+
+    robot[end] = 0          # 회전은 하였으므로, 내리는 위치에 로봇이 있을 시 pop
+
+    idx = end-1             # 반복 횟수를 정해줄 idx
+    if idx < 0 :        
+        idx = restart       
+    while start != idx :    # start +1 부터 end-1의 범위를 while 문 하는듯 함.
+        if robot[idx] == 1 :
+            move = idx + 1
+            
+            if move > restart :
+                move = 0
+
+            if robot[move] == 0 and dura[move]>0 :
+                robot[idx] = 0
+                robot[move] = 1
+                dura[move] -= 1
+                if dura[move] == 0:
+                    dura_count += 1
+                    
+        idx-=1                          # end-1 부터 해주므로 (먼저 들어온 box는 end에 가까울 수 밖에 없다.) idx-1을 해 다음 반복 을 시작.
+
+        if idx < 0 :
+            idx = restart
+
+
+    if robot[start] == 0 and dura[start] >0 :
+        robot[start] = 1
+        dura[start] -= 1
+        if dura[start] == 0:
+                dura_count += 1
+
+print(count)
+
+
 
 '''
 시도는 하였으나 실패한 코드를 첨부함.
