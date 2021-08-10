@@ -1,4 +1,50 @@
 '''
+성공한 코드 , 이 밑에는 처음 시도하였다가 실패한 코드가 있.
+문제를 좀 잘못 읽어서 시간을 많이 소요하였다.
+'''
+from collections import deque
+
+N, K = map(int,input().split())
+dura = deque(map(int,input().split()))
+
+is_Robot = deque([101,False] for _ in range(2*N))
+
+
+count = 0
+
+while True :
+    dura_count = 0
+    count += 1 
+
+    dura.appendleft(dura.pop())
+    is_Robot.appendleft(is_Robot.pop())
+    
+    if is_Robot[N-1][1] == True :
+        is_Robot[N-1][1] = False
+
+    for i in range(N-2,0,-1) :
+        if dura[i+1] >= 1 and is_Robot[i+1][1] == False and is_Robot[i][1] == T:
+            is_Robot[i][1] = False
+            is_Robot[i+1][1] = True
+            is_Robot[i+1][0] = is_Robot[i][0]
+            is_Robot[i][0] = 101
+            dura[i+1] -= 1
+
+        if is_Robot[N-1][1] == True :
+            is_Robot[N-1][1] = False
+       
+
+    if dura[0] > 0 and is_Robot[0][1] == False :
+        is_Robot[0][1] = True
+        dura[0] -= 1
+
+    if dura.count(0) >= K :
+        break
+    
+print(count)
+
+
+'''
 시도는 하였으나 실패한 코드를 첨부함.
 내려 가는걸 밑에 벨트에 넣고 우선순위도 비교 하는식으로 하려고 하였다.
 '''
