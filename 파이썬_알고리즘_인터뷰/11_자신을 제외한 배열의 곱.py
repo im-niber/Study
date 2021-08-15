@@ -33,5 +33,5 @@ def output2(data : list) -> list :
     return out
 
 print(output2([1,2,3,4]))
-
+ 
 
