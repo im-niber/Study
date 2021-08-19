@@ -3,9 +3,8 @@ sys.setrecursionlimit(100000)
 
 T = int(input())
 
-trees = [[] for _ in range(T+1)]
-# trees = {idx : [] for idx in range(T+1)}
-distance = [0 for _ in range(T+1)]
+trees = {idx : [] for idx in range(T+1)}
+distance = [-1] * (T+1)
 
 def dfs(node, leng) :
   for item in trees[node] :
@@ -16,9 +15,10 @@ def dfs(node, leng) :
   
 for i in range(T-1):
   N, S, K = map(int,input().split())
-  trees[N].append([S,K])
-  trees[S].append([N,K])
+  trees[N].append((S,K))
+  trees[S].append((N,K))
 
+distance[1] = 0
 dfs(1,0)
 
 start_node = distance.index(max(distance))
