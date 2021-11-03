@@ -1,2 +1,2 @@
-# study
-공부용
+# Algorithm_Study
+
