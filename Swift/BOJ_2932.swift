@@ -94,17 +94,21 @@ func rotateCol(arrayIndex: Int, move: Int, row: Int) {
 func getAnswer(now: (Int, Int), destination: (Int, Int)) -> Int {
     var answer = 0
     
-    if destination.0 >= now.0 {
-        answer += destination.0 - now.0
-    } else {
-        answer += N + (destination.0 - now.0)
-    }
+    // 삼항연산자로 했으면 더 좋았겠너
+    answer += destination.0 >= now.0 ? destination.0 - now.0 : N + (destination.0 - now.0)
+    answer += destination.1 >= now.1 ? destination.1 - now.1 : N + (destination.1 - now.1)
     
-    if destination.1 >= now.1 {
-        answer += destination.1 - now.1
-    } else {
-        answer += N + (destination.1 - now.1)
-    }
+//    if destination.0 >= now.0 {
+//        answer += destination.0 - now.0
+//    } else {
+//        answer += N + (destination.0 - now.0)
+//    }
+//
+//    if destination.1 >= now.1 {
+//        answer += destination.1 - now.1
+//    } else {
+//        answer += N + (destination.1 - now.1)
+//    }
     
     return answer
 }
