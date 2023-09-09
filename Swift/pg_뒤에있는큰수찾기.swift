@@ -39,3 +39,22 @@ func solution(_ numbers:[Int]) -> [Int] {
 
 print(solution([2, 3, 3, 5]))
 print(solution([9, 1, 5, 3, 6, 2]))
+
+// Stack을 이용한 풀이
+// 숫자들이 쌓여가는 느낌을 받았는데 생각해보면 스택을 사용해도 괜찮았을듯
+// 되게 좋은 풀이인 것 같아 복사해씀ㅎㅋㅎ
+func solution(_ numbers:[Int]) -> [Int] {
+    var answer = [Int]()
+    var stack = [(Int, Int)]()
+    for i in 0..<numbers.count {
+        answer.append(-1)
+        while !stack.isEmpty {
+            if stack.last!.1 >= numbers[i] { break }
+            answer[stack.removeLast().0] = numbers[i]
+        }
+        stack.append((i, numbers[i]))
+    }
+
+    return answer
+}
+
