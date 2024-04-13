@@ -33,3 +33,34 @@ func baek() {
 }
 
 baek()
+
+/*
+ 2차원 배열을 사용하지 않은 풀이.
+ DP 풀이에서 다음 n 위치의 값을 결정할 때 n-1만 보고 판단해도 괜찮은 경우에
+ 1차원 배열로 효율적으로 구성할 수 있다.
+ 대신 이번 문제에서는 맨 뒤에서부터 시작을 해야함.
+ 이유로는 맨 앞에서부터 시작하게 된다면, 값을 갱신한 항목이 생기는데
+ 이걸로 다음 값을 또 판별해버리면 이전 값을 보고 판단하는것이 아니게 되므로 틀리게된다
+ */
+func baek() {
+    let nk = readLine()!.split(separator: " ").map { Int($0)! }
+    let (n, k) = (nk[0], nk[1])
+    var dp = [Int](repeating: 0, count: k+1)
+    
+    for _ in 0..<n {
+        let input = readLine()!.split(separator: " ").map { Int($0)! }
+        let (w, v) = (input[0], input[1])
+        
+        if w > k { continue }
+        
+        for j in stride(from: k, through: 0, by: -1) {
+            if j + w <= k, dp[j] != 0 {
+                dp[j+w] = max(dp[j+w], dp[j] + v)
+            }
+        }
+        dp[w] = max(dp[w], v)
+    }
+    print(dp.max()!)
+}
+
+baek()
