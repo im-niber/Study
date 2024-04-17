@@ -1,0 +1,7 @@
+<form action="/update/<%=@post.id%>" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    제목: <input type="text" name="title"/ value="<%=@post.title%>"><br>         
+    내용: <input type="text" name="content" value="<%=@post.content%>"/>
+    <input type="submit"/>
+</form>
+<a href="/index2">뒤로가기</a>
