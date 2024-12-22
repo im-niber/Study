@@ -42,3 +42,80 @@ for i in range(1, int(input())+1):
 
     print(count)
 
+### 다시 풀어본 ver
+
+from collections import deque
+import sys
+
+input = sys.stdin.readline
+
+dx = [0, 1, -1, 0]
+dy = [1, 0, 0, -1]
+
+T = int(input())
+
+for _ in range(T):
+    M, N, K = map(int, input().split())
+    count = 0
+
+    maps = [[0 for _ in range(M)] for _ in range(N)]
+    for _ in range(K):
+        x, y = map(int, input().split())
+        maps[y][x] = 1
+
+    for r in range(N):
+        for c in range(M):
+            if maps[r][c] == 1:
+                count += 1
+                queue = deque()
+                queue.append((r, c))
+                maps[r][c] = 0
+                while queue:
+                    y, x = queue.popleft()
+
+                    for i in range(4):
+                        ny, nx = y + dy[i], x + dx[i]
+
+                        if 0 <= ny < N and 0 <= nx < M and maps[ny][nx] == 1:
+                            queue.append((ny, nx))
+                            maps[ny][nx] = 0
+
+    print(count)
+
+### dfs ver
+
+from collections import deque
+import sys
+sys.setrecursionlimit(10 ** 6)
+input = sys.stdin.readline
+
+dx = [0, 1, -1, 0]
+dy = [1, 0, 0, -1]
+
+T = int(input())
+
+def solve(maps, r, c):
+    for i in range(4):
+        ny, nx = r + dy[i], c + dx[i]
+
+        if 0 <= ny < N and 0 <= nx < M and maps[ny][nx] == 1:
+            maps[ny][nx] = 0
+            solve(maps, ny, nx)
+
+for _ in range(T):
+    M, N, K = map(int, input().split())
+    count = 0
+
+    maps = [[0 for _ in range(M)] for _ in range(N)]
+    for _ in range(K):
+        x, y = map(int, input().split())
+        maps[y][x] = 1
+
+    for r in range(N):
+        for c in range(M):
+            if maps[r][c] == 1:
+                count += 1
+                maps[r][c] = 0
+                solve(maps, r, c)
+
+    print(count)
